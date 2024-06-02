@@ -15,17 +15,25 @@ namespace ToDoListApp
 
         public MainWindow()
         {
+            InitializeComponent();
+
             if (File.Exists("tasks.json"))
             {
-                string tasksJson = File.ReadAllText("tasks.json");
-                Tasks = JsonConvert.DeserializeObject<ObservableCollection<string>>(tasksJson);
+                try
+                {
+                    string tasksJson = File.ReadAllText("tasks.json");
+                    Tasks = JsonConvert.DeserializeObject<ObservableCollection<string>>(tasksJson) ?? new ObservableCollection<string>();
+                }
+                catch
+                {
+                    Tasks = new ObservableCollection<string>();
+                }
             }
             else
             {
                 Tasks = new ObservableCollection<string>();
             }
 
-            InitializeComponent();
             DataContext = this;
         }
 
