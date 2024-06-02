@@ -2,10 +2,10 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using System.Collections.ObjectModel;
-using Avalonia;
-using ReactiveUI;
 using System.IO;
 using Newtonsoft.Json;
+using ReactiveUI;
+using Avalonia;
 
 namespace ToDoListApp
 {
@@ -14,23 +14,20 @@ namespace ToDoListApp
         public ObservableCollection<string> Tasks { get; init; }
 
         public MainWindow()
-{
-    InitializeComponent();
-    DataContext = this;
-    
-    if (File.Exists("tasks.json"))
-    {
-        string tasksJson = File.ReadAllText("tasks.json");
-        Tasks = JsonConvert.DeserializeObject<ObservableCollection<string>>(tasksJson);
-    }
-    else
-    {
-        Tasks = new ObservableCollection<string>();
-    }
+        {
+            if (File.Exists("tasks.json"))
+            {
+                string tasksJson = File.ReadAllText("tasks.json");
+                Tasks = JsonConvert.DeserializeObject<ObservableCollection<string>>(tasksJson);
+            }
+            else
+            {
+                Tasks = new ObservableCollection<string>();
+            }
 
-    SaveTasks(); 
-}
-
+            InitializeComponent();
+            DataContext = this;
+        }
 
         private void InitializeComponent()
         {
@@ -44,7 +41,7 @@ namespace ToDoListApp
             {
                 Tasks.Add(taskEntry.Text);
                 taskEntry.Text = string.Empty;
-                SaveTasks(); 
+                SaveTasks();
             }
             else
             {
@@ -86,7 +83,7 @@ namespace ToDoListApp
                     Children =
                     {
                         new TextBlock { Text = message, Margin = new Thickness(20) },
-                        new Button { Content = "OK", HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center, Command = ReactiveCommand.Create(() => { messageBox.Close(); }), Margin = new Thickness(20) }
+                        new Button { Content = "OK", HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center, Command = ReactiveUI.ReactiveCommand.Create(() => { messageBox.Close(); }), Margin = new Thickness(20) }
                     }
                 }
             };
