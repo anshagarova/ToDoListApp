@@ -1,11 +1,10 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="https://github.com/avaloniaui"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d"
+        xmlns:toDoListApp="clr-namespace:ToDoListApp"
         x:Class="ToDoListApp.MainWindow"
         Width="400" Height="450"
-        Title="ToDo List">
+        Title="ToDo List"
+        x:DataType="toDoListApp:MainWindow">
     <StackPanel Margin="10">
         <TextBox Name="TaskEntry" Width="300" Margin="0 0 0 10" />
         <Button Content="Add Task" Width="300" Click="OnAddTaskClicked" />
