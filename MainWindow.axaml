@@ -5,13 +5,13 @@
         Width="400" Height="450"
         Title="ToDo List"
         x:DataType="toDoListApp:MainWindow"
-        Background="#CAF0F8"> 
+        Background="#f5ebe0"> 
     <StackPanel Margin="10" HorizontalAlignment="Center">
-        <TextBox Name="TaskEntry" Width="300" Margin="0 5 0 5" Background="#CAF0F8" Foreground="Black" BorderBrush="White" BorderThickness="2" CornerRadius="7"/>
-        <Button Content="Add Task" Width="300" Click="OnAddTaskClicked" HorizontalAlignment="Center" Margin="0 5 0 5" Background="#ADE8F4" Foreground="White" BorderThickness="2" CornerRadius="7"/> 
+        <TextBox Name="TaskEntry" Width="300" Margin="0 5 0 5" Background="#f7ede2" Foreground="White" BorderBrush="White" BorderThickness="2" CornerRadius="7"/>
+        <Button Content="Add Task" Width="300" Click="OnAddTaskClicked" HorizontalAlignment="Center" Margin="0 5 0 5" Background="#c9ada7" Foreground="White" BorderThickness="2" CornerRadius="7"/> 
         <Border Background="#FFC2D1" BorderBrush="White" BorderThickness="2" CornerRadius="10" Margin="0 5 0 5">
-            <ListBox Name="TasksListBox" ItemsSource="{Binding Tasks}" Width="300" Height="300" Background="#CAF0F8" Foreground="White" CornerRadius="7"/>
+            <ListBox Name="TasksListBox" ItemsSource="{Binding Tasks}" Width="300" Height="300" Background="#e3d5ca" Foreground="White" CornerRadius="7"/>
         </Border>
-        <Button Content="Remove Task" Width="300" Click="OnRemoveTaskClicked" HorizontalAlignment="Center" Margin="0 5 0 5" Background="#ADE8F4" Foreground="White" BorderThickness="2" CornerRadius="7"/> 
+        <Button Content="Remove Task" Width="300" Click="OnRemoveTaskClicked" HorizontalAlignment="Center" Margin="0 5 0 5" Background="#c9ada7" Foreground="White" BorderThickness="2" CornerRadius="7"/> 
     </StackPanel>
 </Window>
