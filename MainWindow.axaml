@@ -1,17 +1,14 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:toDoListApp="clr-namespace:ToDoListApp"
+        xmlns:local="using:ToDoListApp"
         x:Class="ToDoListApp.MainWindow"
-        Width="400" Height="450"
-        Title="ToDo List"
-        x:DataType="toDoListApp:MainWindow"
-        Background="#f5ebe0"> 
-    <StackPanel Margin="10" HorizontalAlignment="Center">
-        <TextBox Name="TaskEntry" Width="300" Margin="0 5 0 5" Background="#f7ede2" Foreground="White" BorderBrush="White" BorderThickness="2" CornerRadius="7"/>
-        <Button Content="Add Task" Width="300" Click="OnAddTaskClicked" HorizontalAlignment="Center" Margin="0 5 0 5" Background="#c9ada7" Foreground="White" BorderThickness="2" CornerRadius="7"/> 
-        <Border Background="#FFC2D1" BorderBrush="White" BorderThickness="2" CornerRadius="10" Margin="0 5 0 5">
-            <ListBox Name="TasksListBox" ItemsSource="{Binding Tasks}" Width="300" Height="300" Background="#e3d5ca" Foreground="White" CornerRadius="7"/>
-        </Border>
-        <Button Content="Remove Task" Width="300" Click="OnRemoveTaskClicked" HorizontalAlignment="Center" Margin="0 5 0 5" Background="#c9ada7" Foreground="White" BorderThickness="2" CornerRadius="7"/> 
+        Title="To-Do List" Width="400" Height="300">
+    <StackPanel>
+        <TextBox Name="TaskEntry" Margin="10"/>
+        <Button Content="Add Task" Click="OnAddTaskClicked" Margin="10"/>
+        <ListBox Name="TasksListBox" Items="{Binding Tasks}" Margin="10"/>
+        <Button Content="Remove Task" Click="OnRemoveTaskClicked" Margin="10"/>
+        <Button Content="Mark as Important" Click="OnMarkAsImportantClicked" Margin="10"/>
+        <TextBlock Text="{Binding ErrorMessage, Mode=OneWay}" Foreground="Red" Margin="10"/>
     </StackPanel>
 </Window>

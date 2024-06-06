@@ -9,34 +9,31 @@ using System.IO;
 namespace ToDoListApp
 {
     public partial class MainWindow : Window
+{
+    public ObservableCollection<TaskItem> Tasks { get; set; }
+    public string ErrorMessage { get; set; }
+
+    public MainWindow()
     {
-        public ObservableCollection<string> Tasks { get; set; }
-        public string ErrorMessage { get; set; }
+        Tasks = new ObservableCollection<TaskItem>(); 
+        InitializeComponent();
+        
+        DataContext = this;
+        ErrorMessage = string.Empty;
 
-        public MainWindow()
+        if (File.Exists("tasks.json"))
         {
-            InitializeComponent();
-
-            if (File.Exists("tasks.json"))
+            try
             {
-                try
-                {
-                    string tasksJson = File.ReadAllText("tasks.json");
-                    Tasks = JsonConvert.DeserializeObject<ObservableCollection<string>>(tasksJson) ?? new ObservableCollection<string>();
-                }
-                catch (Exception ex)
-                {
-                    ErrorMessage = "Error loading tasks: " + ex.Message;
-                    Tasks = new ObservableCollection<string>();
-                }
+                string tasksJson = File.ReadAllText("tasks.json");
+                Tasks = JsonConvert.DeserializeObject<ObservableCollection<TaskItem>>(tasksJson) ?? new ObservableCollection<TaskItem>();
             }
-            else
+            catch (Exception ex)
             {
-                Tasks = new ObservableCollection<string>();
+                ErrorMessage = "Error loading tasks: " + ex.Message;
             }
-
-            DataContext = this;
         }
+    }
 
         private void InitializeComponent()
         {
@@ -48,7 +45,7 @@ namespace ToDoListApp
             var taskEntry = this.FindControl<TextBox>("TaskEntry");
             if (taskEntry != null && !string.IsNullOrWhiteSpace(taskEntry.Text))
             {
-                Tasks.Add(taskEntry.Text);
+                Tasks.Add(new TaskItem(taskEntry.Text, false)); 
                 taskEntry.Text = string.Empty;
                 SaveTasks();
             }
@@ -63,7 +60,7 @@ namespace ToDoListApp
             var tasksListBox = this.FindControl<ListBox>("TasksListBox");
             if (tasksListBox != null && tasksListBox.SelectedItem != null)
             {
-                Tasks.Remove((string)tasksListBox.SelectedItem);
+                Tasks.Remove((TaskItem)tasksListBox.SelectedItem);
                 SaveTasks();
             }
             else
@@ -82,6 +79,21 @@ namespace ToDoListApp
             catch (Exception ex)
             {
                 ErrorMessage = "Error saving tasks: " + ex.Message;
+            }
+        }
+
+        private void OnMarkAsImportantClicked(object sender, RoutedEventArgs e)
+        {
+            var tasksListBox = this.FindControl<ListBox>("TasksListBox");
+            if (tasksListBox != null && tasksListBox.SelectedItem != null)
+            {
+                var selectedTask = (TaskItem)tasksListBox.SelectedItem;
+                selectedTask.IsImportant = !selectedTask.IsImportant;
+                SaveTasks();
+            }
+            else
+            {
+                ErrorMessage = "Please select a task to mark as important";
             }
         }
     }
