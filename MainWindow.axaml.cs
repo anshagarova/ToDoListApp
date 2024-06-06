@@ -9,31 +9,34 @@ using System.IO;
 namespace ToDoListApp
 {
     public partial class MainWindow : Window
-{
-    public ObservableCollection<TaskItem> Tasks { get; set; }
-    public string ErrorMessage { get; set; }
-
-    public MainWindow()
     {
-        Tasks = new ObservableCollection<TaskItem>(); 
-        InitializeComponent();
-        
-        DataContext = this;
-        ErrorMessage = string.Empty;
+        public ObservableCollection<TaskItem> Tasks { get; set; }
+        public string ErrorMessage { get; set; }
 
-        if (File.Exists("tasks.json"))
+        public MainWindow()
         {
-            try
+            InitializeComponent();
+            Tasks = new ObservableCollection<TaskItem>(); 
+            DataContext = this;
+            ErrorMessage = string.Empty;
+
+            if (File.Exists("tasks.json"))
             {
-                string tasksJson = File.ReadAllText("tasks.json");
-                Tasks = JsonConvert.DeserializeObject<ObservableCollection<TaskItem>>(tasksJson) ?? new ObservableCollection<TaskItem>();
-            }
-            catch (Exception ex)
-            {
-                ErrorMessage = "Error loading tasks: " + ex.Message;
+                try
+                {
+                    string tasksJson = File.ReadAllText("tasks.json");
+                    var loadedTasks = JsonConvert.DeserializeObject<ObservableCollection<TaskItem>>(tasksJson) ?? new ObservableCollection<TaskItem>();
+                    foreach (var task in loadedTasks)
+                    {
+                        Tasks.Add(task);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ErrorMessage = "Error loading tasks: " + ex.Message;
+                }
             }
         }
-    }
 
         private void InitializeComponent()
         {
