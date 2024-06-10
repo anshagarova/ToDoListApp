@@ -5,12 +5,13 @@
         x:DataType="local:MainWindow"
         Title="To-Do List"
         Width="400"
-        Height="500">
+        Height="500"
+        Background="#fefae0">
     <StackPanel Margin="10" HorizontalAlignment="Center">
         <TextBox Name="TaskEntry"
                  Width="300"
                  Margin="0 5 0 5"
-                 Background="#CAF0F8"
+                 Background="#faf0ca"
                  Foreground="Black"
                  BorderBrush="White"
                  BorderThickness="2"
@@ -22,11 +23,11 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Margin="0 5 0 5"
-                Background="#ADE8F4"
+                Background="#ffbe0b"
                 Foreground="White"
                 BorderThickness="2"
                 CornerRadius="7"/> 
-        <Border Background="#FFC2D1"
+        <Border Background="#FFE0AE"
                 BorderBrush="White"
                 BorderThickness="2"
                 CornerRadius="10"
@@ -35,8 +36,8 @@
                      ItemsSource="{Binding Tasks}"
                      Width="300"
                      Height="300"
-                     Background="#CAF0F8"
-                     Foreground="White"
+                     Background="#faf0ca"
+                     Foreground="Black"
                      CornerRadius="7">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -53,7 +54,7 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Margin="0 5 0 5"
-                Background="#ADE8F4"
+                Background="#ffbe0b"
                 Foreground="White"
                 BorderThickness="2"
                 CornerRadius="7"/> 
@@ -64,7 +65,7 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Margin="0 5 0 5"
-                Background="#ADE8F4"
+                Background="#FFA303"
                 Foreground="White"
                 BorderThickness="2"
                 CornerRadius="7"/> 
