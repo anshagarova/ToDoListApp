@@ -16,10 +16,20 @@ namespace ToDoListApp
         public MainWindow()
         {
             InitializeComponent();
-            Tasks = new ObservableCollection<TaskItem>(); 
+            Tasks = new ObservableCollection<TaskItem>();
             DataContext = this;
             ErrorMessage = string.Empty;
 
+            LoadTasks();
+        }
+
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+        }
+
+        private void LoadTasks()
+        {
             if (File.Exists("tasks.json"))
             {
                 try
@@ -38,9 +48,17 @@ namespace ToDoListApp
             }
         }
 
-        private void InitializeComponent()
+        private void SaveTasks()
         {
-            AvaloniaXamlLoader.Load(this);
+            try
+            {
+                string tasksJson = JsonConvert.SerializeObject(Tasks);
+                File.WriteAllText("tasks.json", tasksJson);
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = "Error saving tasks: " + ex.Message;
+            }
         }
 
         private void OnAddTaskClicked(object sender, RoutedEventArgs e)
@@ -48,7 +66,7 @@ namespace ToDoListApp
             var taskEntry = this.FindControl<TextBox>("TaskEntry");
             if (taskEntry != null && !string.IsNullOrWhiteSpace(taskEntry.Text))
             {
-                Tasks.Add(new TaskItem(taskEntry.Text, false)); 
+                Tasks.Add(new TaskItem(taskEntry.Text, false));
                 taskEntry.Text = string.Empty;
                 SaveTasks();
             }
@@ -72,19 +90,6 @@ namespace ToDoListApp
             }
         }
 
-        private void SaveTasks()
-        {
-            try
-            {
-                string tasksJson = JsonConvert.SerializeObject(Tasks);
-                File.WriteAllText("tasks.json", tasksJson);
-            }
-            catch (Exception ex)
-            {
-                ErrorMessage = "Error saving tasks: " + ex.Message;
-            }
-        }
-
         private void OnMarkAsImportantClicked(object sender, RoutedEventArgs e)
         {
             var tasksListBox = this.FindControl<ListBox>("TasksListBox");
@@ -98,6 +103,18 @@ namespace ToDoListApp
             {
                 ErrorMessage = "Please select a task to mark as important";
             }
+        }
+    }
+
+    public class TaskItem
+    {
+        public string Description { get; set; }
+        public bool IsImportant { get; set; }
+
+        public TaskItem(string description, bool isImportant)
+        {
+            Description = description;
+            IsImportant = isImportant;
         }
     }
 }

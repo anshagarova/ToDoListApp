@@ -2,11 +2,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="using:ToDoListApp"
         x:Class="ToDoListApp.MainWindow"
+        x:DataType="local:MainWindow"
         Title="To-Do List" Width="400" Height="300">
     <StackPanel>
         <TextBox Name="TaskEntry" Margin="10"/>
         <Button Content="Add Task" Click="OnAddTaskClicked" Margin="10"/>
-        <ListBox Name="TasksListBox" Items="{Binding Tasks}" Margin="10"/>
+        <ListBox Name="TasksListBox" ItemsSource="{Binding Tasks}" Margin="10">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Description}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <Button Content="Remove Task" Click="OnRemoveTaskClicked" Margin="10"/>
         <Button Content="Mark as Important" Click="OnMarkAsImportantClicked" Margin="10"/>
         <TextBlock Text="{Binding ErrorMessage, Mode=OneWay}" Foreground="Red" Margin="10"/>
