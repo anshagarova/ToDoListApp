@@ -1,21 +1,75 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="using:ToDoListApp"
+        xmlns:local="clr-namespace:ToDoListApp"
         x:Class="ToDoListApp.MainWindow"
         x:DataType="local:MainWindow"
-        Title="To-Do List" Width="400" Height="300">
-    <StackPanel>
-        <TextBox Name="TaskEntry" Margin="10"/>
-        <Button Content="Add Task" Click="OnAddTaskClicked" Margin="10"/>
-        <ListBox Name="TasksListBox" ItemsSource="{Binding Tasks}" Margin="10">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Description}"/>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <Button Content="Remove Task" Click="OnRemoveTaskClicked" Margin="10"/>
-        <Button Content="Mark as Important" Click="OnMarkAsImportantClicked" Margin="10"/>
-        <TextBlock Text="{Binding ErrorMessage, Mode=OneWay}" Foreground="Red" Margin="10"/>
+        Title="To-Do List"
+        Width="400"
+        Height="500">
+    <StackPanel Margin="10" HorizontalAlignment="Center">
+        <TextBox Name="TaskEntry"
+                 Width="300"
+                 Margin="0 5 0 5"
+                 Background="#CAF0F8"
+                 Foreground="Black"
+                 BorderBrush="White"
+                 BorderThickness="2"
+                 CornerRadius="7"/>
+        <Button Content="Add Task"
+                Width="300"
+                Click="OnAddTaskClicked"
+                HorizontalAlignment="Center"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Margin="0 5 0 5"
+                Background="#ADE8F4"
+                Foreground="White"
+                BorderThickness="2"
+                CornerRadius="7"/> 
+        <Border Background="#FFC2D1"
+                BorderBrush="White"
+                BorderThickness="2"
+                CornerRadius="10"
+                Margin="0 5 0 5">
+            <ListBox Name="TasksListBox"
+                     ItemsSource="{Binding Tasks}"
+                     Width="300"
+                     Height="300"
+                     Background="#CAF0F8"
+                     Foreground="White"
+                     CornerRadius="7">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Description}"
+                                   Foreground="{Binding DisplayColor}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Border>
+        <Button Content="Remove Task"
+                Width="300"
+                Click="OnRemoveTaskClicked"
+                HorizontalAlignment="Center"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Margin="0 5 0 5"
+                Background="#ADE8F4"
+                Foreground="White"
+                BorderThickness="2"
+                CornerRadius="7"/> 
+        <Button Content="Mark as Important"
+                Width="300"
+                Click="OnMarkAsImportantClicked"
+                HorizontalAlignment="Center"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Margin="0 5 0 5"
+                Background="#ADE8F4"
+                Foreground="White"
+                BorderThickness="2"
+                CornerRadius="7"/> 
+        <TextBlock Text="{Binding ErrorMessage, Mode=OneWay}"
+                   Foreground="Red"
+                   Margin="10"/>
     </StackPanel>
 </Window>
