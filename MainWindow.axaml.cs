@@ -4,7 +4,9 @@ using Avalonia.Markup.Xaml;
 using Newtonsoft.Json;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
+using System.Linq;
 
 namespace ToDoListApp
 {
@@ -38,8 +40,10 @@ namespace ToDoListApp
                     var loadedTasks = JsonConvert.DeserializeObject<ObservableCollection<TaskItem>>(tasksJson) ?? new ObservableCollection<TaskItem>();
                     foreach (var task in loadedTasks)
                     {
+                        task.PropertyChanged += Task_PropertyChanged;
                         Tasks.Add(task);
                     }
+                    SortTasks();
                 }
                 catch (Exception ex)
                 {
@@ -61,13 +65,35 @@ namespace ToDoListApp
             }
         }
 
+        private void Task_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(TaskItem.IsImportant))
+            {
+                SortTasks();
+                SaveTasks();
+            }
+        }
+
+        private void SortTasks()
+        {
+            var sortedTasks = new ObservableCollection<TaskItem>(Tasks.OrderByDescending(t => t.IsImportant));
+            Tasks.Clear();
+            foreach (var task in sortedTasks)
+            {
+                Tasks.Add(task);
+            }
+        }
+
         private void OnAddTaskClicked(object sender, RoutedEventArgs e)
         {
             var taskEntry = this.FindControl<TextBox>("TaskEntry");
             if (taskEntry != null && !string.IsNullOrWhiteSpace(taskEntry.Text))
             {
-                Tasks.Add(new TaskItem(taskEntry.Text, false));
+                var newTask = new TaskItem(taskEntry.Text, false);
+                newTask.PropertyChanged += Task_PropertyChanged;
+                Tasks.Add(newTask);
                 taskEntry.Text = string.Empty;
+                SortTasks();
                 SaveTasks();
             }
             else
@@ -81,7 +107,9 @@ namespace ToDoListApp
             var tasksListBox = this.FindControl<ListBox>("TasksListBox");
             if (tasksListBox != null && tasksListBox.SelectedItem != null)
             {
-                Tasks.Remove((TaskItem)tasksListBox.SelectedItem);
+                var task = (TaskItem)tasksListBox.SelectedItem;
+                task.PropertyChanged -= Task_PropertyChanged;
+                Tasks.Remove(task);
                 SaveTasks();
             }
             else
@@ -97,7 +125,6 @@ namespace ToDoListApp
             {
                 var selectedTask = (TaskItem)tasksListBox.SelectedItem;
                 selectedTask.IsImportant = !selectedTask.IsImportant;
-                SaveTasks();
             }
             else
             {
