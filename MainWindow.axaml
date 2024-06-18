@@ -5,7 +5,7 @@
         x:DataType="local:MainWindow"
         Title="To-Do List"
         Width="400"
-        Height="500"
+        Height="550"
         Background="#fefae0">
     <StackPanel Margin="10" HorizontalAlignment="Center">
         <TextBox Name="TaskEntry"
@@ -47,28 +47,41 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </Border>
-        <Button Content="Remove Task"
-                Width="300"
-                Click="OnRemoveTaskClicked"
-                HorizontalAlignment="Center"
-                HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center"
-                Margin="0 5 0 5"
-                Background="#ffbe0b"
-                Foreground="White"
-                BorderThickness="2"
-                CornerRadius="7"/> 
-        <Button Content="Mark as Important"
-                Width="300"
-                Click="OnMarkAsImportantClicked"
-                HorizontalAlignment="Center"
-                HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center"
-                Margin="0 5 0 5"
-                Background="#FFA303"
-                Foreground="White"
-                BorderThickness="2"
-                CornerRadius="7"/> 
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+            <Button Content="Remove Task"
+                    Width="300"
+                    Click="OnRemoveTaskClicked"
+                    HorizontalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Margin="0 5 0 5"
+                    Background="#ffbe0b"
+                    Foreground="White"
+                    BorderThickness="2"
+                    CornerRadius="7"/> 
+            <Button Content="Edit Task"
+                    Width="300"
+                    Click="OnEditTaskClicked"
+                    HorizontalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Margin="0 5 0 5"
+                    Background="#ffbe0b"
+                    Foreground="White"
+                    BorderThickness="2"
+                    CornerRadius="7"/> 
+            <Button Content="Mark as Important"
+                    Width="300"
+                    Click="OnMarkAsImportantClicked"
+                    HorizontalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Margin="0 5 0 5"
+                    Background="#FFA303"
+                    Foreground="White"
+                    BorderThickness="2"
+                    CornerRadius="7"/> 
+        </StackPanel>
         <TextBlock Text="{Binding ErrorMessage, Mode=OneWay}"
                    Foreground="Red"
                    Margin="10"/>

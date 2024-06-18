@@ -117,6 +117,18 @@ namespace ToDoListApp
                 ErrorMessage = "Please select a task to remove";
             }
         }
+        private void OnEditTaskClicked(object sender, RoutedEventArgs e)
+{
+    var tasksListBox = this.FindControl<ListBox>("TasksListBox");
+    var taskEntry = this.FindControl<TextBox>("TaskEntry");
+
+    if (tasksListBox != null && tasksListBox.SelectedItem != null && taskEntry != null)
+    {
+        var selectedTask = (TaskItem)tasksListBox.SelectedItem;
+        taskEntry.Text = selectedTask.Description;
+        Tasks.Remove(selectedTask); 
+    }
+}
 
         private void OnMarkAsImportantClicked(object sender, RoutedEventArgs e)
         {

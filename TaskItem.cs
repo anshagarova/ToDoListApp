@@ -4,6 +4,7 @@ public class TaskItem : INotifyPropertyChanged
 {
     private string _description;
     private bool _isImportant;
+    private bool _isEditing;
 
     public event PropertyChangedEventHandler PropertyChanged;
 
@@ -30,6 +31,19 @@ public class TaskItem : INotifyPropertyChanged
                 _isImportant = value;
                 OnPropertyChanged(nameof(IsImportant));
                 OnPropertyChanged(nameof(DisplayColor));
+            }
+        }
+    }
+
+public bool IsEditing
+    {
+        get => _isEditing;
+        set
+        {
+            if (_isEditing != value)
+            {
+                _isEditing = value;
+                OnPropertyChanged(nameof(IsEditing));
             }
         }
     }
