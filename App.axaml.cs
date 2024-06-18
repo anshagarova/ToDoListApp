@@ -1,4 +1,5 @@
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 
@@ -12,12 +13,28 @@ public partial class App : Application
     }
 
     public override void OnFrameworkInitializationCompleted()
-    {
-        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-        {
-            desktop.MainWindow = new MainWindow();
-        }
+{
+    var mainWindow = new MainWindow();
 
-        base.OnFrameworkInitializationCompleted();
+    string iconPath = "avares:Icons/icon.png";
+System.Diagnostics.Debug.WriteLine($"Checking for icon file at: {iconPath}");
+
+if (System.IO.File.Exists(iconPath))
+{
+    mainWindow.Icon = new WindowIcon(iconPath);
+    System.Diagnostics.Debug.WriteLine("Icon file found and set successfully.");
+}
+else
+{
+    System.Diagnostics.Debug.WriteLine("Icon file not found.");
+}
+
+    if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+    {
+        desktop.MainWindow = mainWindow; // Assign the initialized mainWindow instance
     }
+
+    base.OnFrameworkInitializationCompleted();
+}
+
 }
