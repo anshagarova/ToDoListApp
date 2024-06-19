@@ -4,7 +4,7 @@
         x:Class="ToDoListApp.MainWindow"
         x:DataType="local:MainWindow"
         Title="To-Do List"
-        Width="400"
+        Width="345"
         Height="500"
         Background="#fefae0">
     <StackPanel Margin="10" HorizontalAlignment="Center">
