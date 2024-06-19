@@ -5,7 +5,7 @@
         x:DataType="local:MainWindow"
         Title="To-Do List"
         Width="400"
-        Height="550"
+        Height="500"
         Background="#fefae0">
     <StackPanel Margin="10" HorizontalAlignment="Center">
         <TextBox Name="TaskEntry"
