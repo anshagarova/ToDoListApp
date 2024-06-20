@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Newtonsoft.Json;
@@ -127,6 +128,13 @@ namespace ToDoListApp
         var selectedTask = (TaskItem)tasksListBox.SelectedItem;
         taskEntry.Text = selectedTask.Description;
         Tasks.Remove(selectedTask); 
+    }
+}
+private void TaskEntry_KeyDown(object sender, KeyEventArgs e)
+{
+    if (e.Key == Key.Enter)
+    {
+        OnAddTaskClicked(sender, null);
     }
 }
 

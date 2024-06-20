@@ -16,7 +16,8 @@
                  BorderBrush="White"
                  BorderThickness="2"
                  CornerRadius="7"
-                 HorizontalAlignment="Center"/>
+                 HorizontalAlignment="Center"
+                  KeyDown="TaskEntry_KeyDown"/>
         <Button Content="Add Task"
                 Width="300"
                 Click="OnAddTaskClicked"
@@ -44,6 +45,8 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Description}"
+                                   TextWrapping="Wrap"
+                                   MaxWidth="280"
                                    Foreground="{Binding DisplayColor}"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
